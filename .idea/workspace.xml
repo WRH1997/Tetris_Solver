@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b562cc65-f32a-4c10-9eda-5f151c38419f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TetrisSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TetrisSolver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tetromino.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tetromino.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +48,7 @@
       <option name="presentableId" value="Default" />
       <updated>1669044214890</updated>
       <workItem from="1669044218302" duration="20448000" />
-      <workItem from="1669133248011" duration="1906000" />
+      <workItem from="1669133248011" duration="4502000" />
     </task>
     <servers />
   </component>
@@ -66,16 +65,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/TetrisSolver.java</url>
-          <line>298</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
