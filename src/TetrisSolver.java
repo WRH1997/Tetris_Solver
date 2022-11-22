@@ -329,18 +329,6 @@ public class TetrisSolver{
             return true;
         }
         return false;
-        /*char[][] initialGrid = deepCopyGrid(currGrid);
-        for(int y=0; y<piece.length; y++){
-            for(int x=0; x<piece[0].length; x++){
-                if(piece[y][x] == 1){
-                    currGrid[startingY + y][startingX + x] = '*';
-                }
-            }
-        }
-        if(isPlacementFloating(initialGrid, currGrid)){
-            return false;
-        }
-        return true;*/
     }
 
 
