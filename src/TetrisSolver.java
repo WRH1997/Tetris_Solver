@@ -186,7 +186,6 @@ public class TetrisSolver{
             grid = bestGrid;
             return bestValue;
         }
-        /*COMMENTS*/
         else{
             List<List<PiecePlacement>> lookaheadCombinations = new ArrayList<>();   //list to store all lookahead placement combinations
             //add initial piece's placements to that list (these form the base of the potential future placement combinations)
