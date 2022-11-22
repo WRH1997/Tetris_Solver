@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b562cc65-f32a-4c10-9eda-5f151c38419f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tetromino.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tetromino.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TetrisSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TetrisSolver.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +48,7 @@
       <option name="presentableId" value="Default" />
       <updated>1669044214890</updated>
       <workItem from="1669044218302" duration="20448000" />
-      <workItem from="1669133248011" duration="4502000" />
+      <workItem from="1669133248011" duration="11799000" />
     </task>
     <servers />
   </component>
