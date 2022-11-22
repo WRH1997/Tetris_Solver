@@ -38,13 +38,19 @@ public class TetrisSolver{
             for(int col=width-1; col>=0; col--){
                 rowStr += grid[row][col];
             }
+            if(rowStr.equals(checkEmptyRow)){
+                break;
+            }
             puzzleStr += rowStr + "\n";
+        }
+        if(puzzleStr.equals("")){
+            return puzzleStr;
         }
         //https://stackoverflow.com/questions/7569335/reverse-a-string-in-java
         puzzleStr = new StringBuilder(puzzleStr).reverse().toString();
         //https://stackoverflow.com/questions/4503656/java-removing-first-character-of-a-string
         puzzleStr = puzzleStr.substring(1);
-        //System.out.println(gridPenalty(grid));
+        System.out.println(gridPenalty(grid));
         return puzzleStr;
     }
 
@@ -93,12 +99,14 @@ public class TetrisSolver{
         if(piece.trim().equals("")){
             throw new IllegalArgumentException("Piece is empty string!");
         }
-        if(relativeFrequency<0){
-            //relative frequency of 0 would be valid because it means the piece is stored
+        if(relativeFrequency<=0){
+            //invalid because this means piece never appears in game (only if we place it manually)
+
+            //(alternative, but causes problems calc val) --> {run vs debug not matching) relative frequency of 0 would be valid because it means the piece is stored
             //in the Tetris game but never used in play. It can, however, be used in debugging.
             //in the case of this program, relative freq. of 0 means we can place the piece using placePiece,
             //but it will not have any effect on lookahead calculations since its (val*freq)/totalFreq will always be 0
-            throw new IllegalArgumentException("Relative frequency is negative (invalid)!");
+            throw new IllegalArgumentException("Relative frequency is less than 1 (invalid)!");
         }
         String[] pieceRows = piece.split("\n");
         Tetromino newTetromino;
@@ -185,7 +193,7 @@ public class TetrisSolver{
                 return placePiece(pieceId, 0);
             }
             grid = bestLookaheadCombination.get(0).getGridAfterPlacement();
-            return bestLookaheadCombination.get(0).getPlacementValue();
+            return bestLookaheadCombination.get(0).getPlacementValue() - gridPenalty(grid);
         }
     }
 
@@ -234,6 +242,9 @@ public class TetrisSolver{
         for(int i=0; i<lookaheadCombinations.size(); i++){
             for(int j=0; j<puzzlePieces.size(); j++){
                 Tetromino nextPiece = puzzlePieces.get(j);
+                if(nextPiece.getRelativeFrequency()==0){
+                    continue;
+                }
                 for(int k=0; k<nextPiece.getPieceOrientations().size(); k++){
                     char[][] lastGrid = deepCopyGrid(lookaheadCombinations.get(i).get(counter-1).getGridAfterPlacement());
                     List<PiecePlacement> existingCombination = lookaheadCombinations.get(i);
@@ -261,8 +272,6 @@ public class TetrisSolver{
         for(int i=0; i<puzzlePieces.size(); i++){
             sumOfPieceFrequencies += puzzlePieces.get(i).getRelativeFrequency();
         }
-        double bestValue = 0;
-        List<PiecePlacement> bestCombination = null;
         for(List<PiecePlacement> placementCombination: lookaheadCombinations){
             double totalValue = 0;
             for(int i=0; i<placementCombination.size(); i++){
@@ -275,9 +284,12 @@ public class TetrisSolver{
                 }
             }
             totalValue = totalValue - gridPenalty(placementCombination.get(placementCombination.size()-1).getGridAfterPlacement());
-            bestValue = totalValue;
             lookaheadValues.put(placementCombination, totalValue);
         }
+        //https://stackoverflow.com/questions/26230225/hashmap-getting-first-key-value
+        Map.Entry<List<PiecePlacement>, Double> firstCombination = lookaheadValues.entrySet().iterator().next();
+        double bestValue = firstCombination.getValue();
+        List<PiecePlacement> bestCombination = firstCombination.getKey();
         for(Map.Entry<List<PiecePlacement>, Double> entry: lookaheadValues.entrySet()){
             if(entry.getValue()>bestValue){
                 bestValue = entry.getValue();
@@ -286,6 +298,7 @@ public class TetrisSolver{
         }
         return bestCombination;
     }
+
 
 
     private char[][] deepCopyGrid(char[][] gridToCopy){
@@ -300,18 +313,23 @@ public class TetrisSolver{
 
 
     private boolean isPlacementValid(int[][] piece, int startingY, int startingX, char[][] currGrid){
-        boolean hangingBlocks = true;
+        boolean floatingPiece = true;
+        boolean pieceIsTouchingFloor = false;
         for(int y=0; y<piece.length; y++){
             for(int x=0; x<piece[0].length; x++){
                 if(startingY + y == nextRowInExistingColumn(currGrid, startingX + x)){
-                    hangingBlocks = false;
+                    floatingPiece = false;
+                }
+                if(piece[y][x] == 1){
+                    currGrid[startingY + y][startingX + x] = '*';
                 }
             }
         }
-        if(hangingBlocks){
-            return false;
+        if(!floatingPiece){
+            return true;
         }
-        char[][] initialGrid = deepCopyGrid(currGrid);
+        return false;
+        /*char[][] initialGrid = deepCopyGrid(currGrid);
         for(int y=0; y<piece.length; y++){
             for(int x=0; x<piece[0].length; x++){
                 if(piece[y][x] == 1){
@@ -322,7 +340,7 @@ public class TetrisSolver{
         if(isPlacementFloating(initialGrid, currGrid)){
             return false;
         }
-        return true;
+        return true;*/
     }
 
 
@@ -366,7 +384,7 @@ public class TetrisSolver{
 
     private int nextRowInExistingColumn(char[][] currGrid, int col){
         for(int row=height-1; row>=0; row--){
-            if(grid[row][col]!=' '){
+            if(currGrid[row][col]!=' '){
                 return row + 1;
             }
         }
@@ -440,17 +458,17 @@ public class TetrisSolver{
 
 
     private int gridPenalty(char[][] currGrid){
-        int topRow = topRowInGrid(currGrid);
+        //int topRow = topRowInGrid(currGrid);
         int penalty = 0;
         boolean gridIsEven = false;
         if(width%2==0){
             gridIsEven = true;
         }
         int center = width/2;
-        for(int row=0; row<=topRow; row++){
+        for(int row=0; row<height; row++){
             for(int col=0; col<width; col++){
                 if(currGrid[row][col]==' '){
-                    int topRowInCol = nextRowInExistingColumn(currGrid, col);
+                    int topRowInCol = nextRowInExistingColumn(currGrid, col) - 1;
                     if(row<topRowInCol){
                         penalty += (topRowInCol - row) * 7;
                     }
