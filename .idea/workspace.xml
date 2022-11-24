@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b562cc65-f32a-4c10-9eda-5f151c38419f" name="Changes" comment="" />
+    <list default="true" id="b562cc65-f32a-4c10-9eda-5f151c38419f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TetrisSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/TetrisSolver.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,7 +35,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/waleedalhindi/Desktop/alhindi",
+    "last_opened_file_path": "/Users/waleedalhindi/Desktop/Fall 2022/Software Dev. Concepts/Assignment 4/alhindi",
     "nodejs_package_manager_path": "npm"
   }
 }]]></component>
@@ -47,6 +50,7 @@
       <workItem from="1669044218302" duration="20448000" />
       <workItem from="1669133248011" duration="11877000" />
       <workItem from="1669153703853" duration="217000" />
+      <workItem from="1669153959705" duration="1492000" />
     </task>
     <servers />
   </component>
