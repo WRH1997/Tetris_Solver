@@ -107,12 +107,7 @@ public class TetrisSolver{
             throw new IllegalArgumentException("Piece is empty string!");
         }
         if(relativeFrequency<=0){
-            //invalid because this means piece never appears in game (only if we place it manually)
-
-            //(alternative, but causes problems calc val) --> relative frequency of 0 would be valid because it means the piece is stored
-            //in the Tetris game but never used in play. It can, however, be used in debugging.
-            //in the case of this program, relative freq. of 0 means we can place the piece using placePiece,
-            //but it will not have any effect on lookahead calculations since its (val*freq)/totalFreq will always be 0
+            //invalid because this means piece never appears in game (only if we place it manually) [alternative approach mentioned in external documentation]
             throw new IllegalArgumentException("Relative frequency is less than 1 (invalid)!");
         }
         String[] pieceRows = piece.split("\n");   //separate the piece string into the piece's individual rows
